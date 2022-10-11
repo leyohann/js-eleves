@@ -1,44 +1,66 @@
-<!DOCTYPE html>
 <html>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<div id="array">
 
-<head>
-    <meta charset="utf-8">
-</head>
+</div>
 
-<body>
-    <div id="array">
+<script>
 
-    </div>
-    <script>
-        function load_students_API(students) {
-            console.log(students);
-            let ul = document.createElement("ul");
-            for (student of students) {
-                let li = document.createElement('li')
-                li.innerHTML += student;
-                ul.appendChild(li)
-            }
-            document.getElementById("array").appendChild(li);
+    function load_students_via_api(students) {
+        console.log(students)
+        let d = document.createElement("div");
+        for (student of students) {
+            load_student(student);
+
         }
-        function load_students() {
-            fetch('./etudiants.json')
-                .then(data => data.json())
-                .then(results => load_url_students(results.students))
-        }
-        load_students();
-        function load_url_students(students) {
-            let link = document.createElement("a");
-            let d = document.createElement("div");
+        document.getElementById("array").appendChild(d);
+    }
+    function load_students() {
+        fetch('./etudiants.json')
+            .then(data => data.json())
+            .then(
+                results => load_students_via_api(results.students)
+            )
+    }
 
-            for (student of students) {
-                fetch("https://api.github.com/users/" + student, {
-                    headers: new Headers({ "Authorization": "Bearer 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" })
-                })
-                    .then(data => data.json())
-                    .then(response => console.log(response.login + " " + response.avatar_url))
-            }
+    function load_student(name) {
+        fetch('https://api.github.com/users/' + name, {
+            headers: new Headers({ "Authorization": "Bearer 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" })
         }
-    </script>
-</body>
+        )
+
+            .then(data => data.json())
+            .then(generateHtml)
+
+    }
+    function generateHtml(response) {
+        let node = document.getElementById("array");
+        let img = document.createElement("img");
+        img.src = response.avatar_url
+
+        let title = document.createElement("h2");
+        title.innerHTML = response.login;
+
+        let rps = document.createElement("p");
+        rps.innerHTML = "Nombre de Repository : " + response.public_repos;
+
+        let flw = document.createElement("p");
+        flw.innerHTML = "Nombre de Followers : " + response.followers;
+
+        let div = document.createElement("div");
+        div.appendChild(title)
+        div.appendChild(img)
+        div.appendChild(rps)
+        div.appendChild(flw)
+        node.appendChild(div);
+    }
+
+    $(document).ready(() => {
+        load_students()
+
+    });
+
+
+</script>
 
 </html>
