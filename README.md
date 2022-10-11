@@ -27,15 +27,23 @@ Interrogez également l'url `https://api.github.com/users/{username}/repos`, ré
  - Le nom du dépôt doit être visible au niveau de la vignette utilisateur.
  - Un lien vers le dépôt doit exister.
 
-## Utilisation de JQuery
+## Dernier jour
+
+Livrer votre dépôt GIT au formateur
 
 Vous avez utilisé du VanillaJS jusqu'alors. C'est à dire le javascript natif présent au sein de tout browser. 
 De nombreuses entreprises continuent à utiliser jQuery ce qui leurs permets de s'abstraire des particularités des différents navigateurs. 
 
-Découvrons ici comment l'utiliser ! 
+Histoire d'être dans le coup, votre chef de projet a décidé de demander à ses développeurs de privilégier l'utilisation de jQuery plutôt que du vanillaJS. 
 
-- Importez la bibliothèque `jQuery`, disponible [ici](https://jquery.com/download/)
-- Modifiez le code précédent afin de remplacer le createElement,  le appendChild et les fetchs par les méthodes correspondantes de jQuery.
+Au sein de votre site  :
+ - Importez la bibliothèque `jQuery`, disponible [ici](https://jquery.com/download/)
+ - Faites en sorte que votre script puisse être linké en haut de page, avant l'affichage du  DOM, et ne s'execute qu'une fois que l'intégralité du HTML ait été chargé
+ - Utiliser l'insertion d'éléments dans le DOM de jQuery plutôt que le createElement
+ - Lors de la récupération des données concernant vos followers, vous avez récupéré des données; affichez les données liées aux followers en utilisant la méthode slideDown de jQuery. 
+ - Ajoutez des données au sein de data-attributes et accédez-y par le biais de jQuery pour afficher 
 
+
+## Note pour les futurs développeurs que vous êtes
 
 Attention, dans le futur, il n'est pas nécessaire d'utiliser $.ajax mais bien le fetch. Et il est important de noter qu'il n'est pas nécessaire d'inclure jQuery au sein de toutes vos applications. Cette bibliothèque est lourde et est souvent importée pour très peu de fonctionnalités. 
